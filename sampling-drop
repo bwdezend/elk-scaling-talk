@@ -1,0 +1,9 @@
+  # Drop logs that have a request_id_sampling under @sampling_rate and don't
+  # have the "sample_ok" flag set
+  
+  if [request_id_sampling] {
+    # Drop a percentage of request_id_sampling (Min: 0.0, Max: 0.999999999)
+    if (( [request_id_sampling] < <%= @sampling_rate %> ) and ( [sample_ok] != "no" )) {
+      drop {}
+    }
+  }

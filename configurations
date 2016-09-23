@@ -1,0 +1,11 @@
+# Prevent read-query storms on SATA nodes
+indices.query.query_string.allowLeadingWildcard: false
+
+# Prevent endless rebalance with high shard/node count clusters
+cluster.routing.allocation.balance.threshold: 1.1f
+
+# Make sure indexing tier has memory for indexing
+indices.memory.index_buffer_size: 50%
+
+# Give me memory or give me death
+bootstrap.mlockall: true

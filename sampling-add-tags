@@ -1,0 +1,10 @@
+    # If request_id field exists then generate sampling score between 0.0 and 1.0
+    # using the MURMUR3 hash (https://en.wikipedia.org/wiki/MurmurHash) and save it
+    # to a field named request_id_sampling
+    
+    if [request_id] {
+      ruby {
+        code => "require 'murmurhash3'; event['request_id_sampling'] = (MurmurHash3::V32.str_hash(event['[request_id]']).to_f/4294967294)"
+      }
+    }
+
